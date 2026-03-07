@@ -3,14 +3,14 @@
 import Link from "next/link";
 import Image from "next/image";
 import css from "./ProfilePage.module.css";
-import { useAuthStore } from "@/lib/store/authStore";
-import { getServerMe } from "@/lib/api/serverApi";
+// import { useAuthStore } from "@/lib/store/authStore";
+import { getMe } from "@/lib/api/serverApi";
 import type { Metadata } from "next";
 
 // export default function ProfilePage() {
 //   const { user } = useAuthStore();
 export async function generateMetadata(): Promise<Metadata> {
-  const user = await getServerMe();
+  const user = await getMe();
   return {
     title: `Profile: ${user.username}`,
     description: `Profile page for ${user.username}`,
@@ -18,7 +18,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function ProfilePage() {
-  const user = await getServerMe();
+  const user = await getMe();
 
   return (
     <main className={css.mainContent}>
