@@ -82,6 +82,13 @@ export const getServerMe = async (): Promise<User> => {
 };
 
 export const deleteNoteById = async (id: string) => {
-  const res = await nextServer.delete(`/notes/${id}`);
+  const cookieStore = await cookies();
+
+  const res = await nextServer.delete(`/notes/${id}`, {
+    headers: {
+      Cookie: cookieStore.toString(),
+    },
+  });
+
   return res.data;
 };
