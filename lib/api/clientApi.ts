@@ -46,9 +46,13 @@ export const login = async (data: { email: string; password: string }): Promise<
   return res.data;
 };
 
-export const logout = async () => {
+export const logout = async (): Promise<void> => {
   await nextServer.post("/auth/logout");
 };
+
+// export const logout = async () => {
+//   await nextServer.post("/auth/logout");
+// };
 
 export const checkSession = async () => {
   try {
@@ -64,11 +68,19 @@ export const getMe = async (): Promise<User> => {
   const res = await nextServer.get<User>("/users/me");
   return res.data;
 };
-export const updateMe = async (data: Partial<User>): Promise<User> => {
+// export const updateMe = async (data: Partial<User>): Promise<User> => {
+//   const res = await nextServer.patch<User>("/users/me", data);
+//   return res.data;
+// };
+export type UpdatableUserFields = { username?: string; avatar?: string };
+
+
+export const updateMe = async (
+  data: UpdatableUserFields
+): Promise<User> => {
   const res = await nextServer.patch<User>("/users/me", data);
   return res.data;
 };
-
 
 
 
