@@ -14,7 +14,7 @@ import css from "./NotesClient.module.css";
 import type { Tag } from "@/types/note" 
 import Link from "next/link";
 
-const PER_PAGE = 12;
+// const PER_PAGE = 12;
 interface NotesClientProps {
   tag: Tag | string;
 }
@@ -27,17 +27,16 @@ const NotesClient = ({ tag }: NotesClientProps) => {
   const [debouncedSearchQuery] = useDebounce(searchQuery, 500);
   
   
-const { data, isLoading, error } = useQuery<FetchNotesResponse>({
-  queryKey: ["notes", currentPage, debouncedSearchQuery, tag],
-  queryFn: () =>
-    fetchNotes({
-      page: currentPage,
-      perPage: PER_PAGE,
-      search: debouncedSearchQuery,
-      tag: tag === "all" ? undefined : tag,
-    }),
-  placeholderData: (previousData) => previousData,
-});
+  const { data, isLoading, error } = useQuery<FetchNotesResponse>({
+    queryKey: ["notes", currentPage, debouncedSearchQuery, tag],
+    queryFn: () =>
+      fetchNotes(
+        tag === "all" ? undefined : tag, 
+        currentPage,                    
+        debouncedSearchQuery            
+      ),
+    placeholderData: (previousData) => previousData,
+  });
 
 
   const handleSearch = (value: string) => {

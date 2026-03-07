@@ -1,9 +1,9 @@
+"use client";
 
 import { nextServer } from "./api";
 import { User } from "@/types/user";
 import { Note, NoteListResponse } from "@/types/note";
 
-// Notes
 export const fetchNotes = async (
   tag?: string,
   page = 1,
